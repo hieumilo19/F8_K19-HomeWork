@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2: Phân nhóm các thuật toán Machine Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+        }
+
+        a { color: #2a7ae2; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .post-content-wrap {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .post-nav {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .post-nav a { color: #2a7ae2; }
+        hr.divider {
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 12px 0 24px;
+        }
+
+        .post-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #111;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+        .post-meta {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 13px;
+            color: #828282;
+            margin-bottom: 24px;
+        }
+        .post-meta a { color: #828282; }
+        .post-meta a:hover { color: #424242; }
+
+        .post-body p {
+            margin-bottom: 1.2em;
+        }
+        .post-body h2 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 2em 0 0.6em;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+        .post-body h3 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 1.6em 0 0.5em;
+            color: #222;
+        }
+        .post-body h4 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 1.4em 0 0.4em;
+            color: #333;
+        }
+        .post-body ul, .post-body ol {
+            padding-left: 28px;
+            margin-bottom: 1em;
+        }
+        .post-body li { margin-bottom: 4px; }
+        .post-body strong { font-weight: 700; }
+        .post-body em { font-style: italic; }
+        .toc-box {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px;
+        }
+        .toc-box p { font-weight: 600; margin-bottom: 8px; }
+        .toc-box ul { padding-left: 20px; }
+        .toc-box ul ul { padding-left: 18px; margin-top: 4px; }
+        .toc-box li { margin-bottom: 3px; }
+        .toc-box a { color: #2a7ae2; }
+
+        .post-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 16px auto;
+        }
+        .img-caption {
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+            font-family: 'Source Sans 3', sans-serif;
+            margin-top: -8px;
+            margin-bottom: 16px;
+        }
+
+        .post-footer-nav {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .post-comment-note {
+            background: #f9f9f9;
+            border-left: 3px solid #e0e0e0;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: 'Source Sans 3', sans-serif;
+            margin: 24px 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .post-nav { flex-direction: column; gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+        <h1 class="post-title">Bài 2: Phân nhóm các thuật toán Machine Learning</h1>
+        <p class="post-meta">
+            <a href="/tags#General">General</a> &nbsp;·&nbsp; Dec 27, 2016
+        </p>
+
+        <div class="post-body">
+
+            <p>Có hai cách phổ biến phân nhóm các thuật toán Machine learning. Một là dựa trên phương thức học (learning style), hai là dựa trên chức năng (function) (của mỗi thuật toán).</p>
+
+            <div class="toc-box">
+                <p>Trong trang này:</p>
+                <ul>
+                    <li><a href="#phan-nhom-dua-tren-phuong-thuc-hoc">1. Phân nhóm dựa trên phương thức học</a>
+                            <li><a href="#supervised">Supervised Learning (Học có giám sát)</a>
+                                <ul>
+                                    <li><a href="#classification">Classification (Phân loại)</a></li>
+                                    <li><a href="#regression">Regression (Hồi quy)</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#unsupervised">Unsupervised Learning (Học không giám sát)</a>
+                                <ul>
+                                    <li><a href="#clustering">Clustering (phân nhóm)</a></li>
+                                    <li><a href="#association">Association</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#semi">Semi-Supervised Learning (Học bán giám sát)</a></li>
+                            <li><a href="#reinforcement">Reinforcement Learning (Học Củng Cố)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#phan-nhom-dua-tren-chuc-nang">2. Phân nhóm dựa trên chức năng</a>
+                        <ul>
+                            <li><a href="#reg-alg">Regression Algorithms</a></li>
+                            <li><a href="#cls-alg">Classification Algorithms</a></li>
+                            <li><a href="#ins-alg">Instance-based Algorithms</a></li>
+                            <li><a href="#rgl-alg">Regularization Algorithms</a></li>
+                            <li><a href="#bay-alg">Bayesian Algorithms</a></li>
+                            <li><a href="#clu-alg">Clustering Algorithms</a></li>
+                            <li><a href="#ann-alg">Artificial Neural Network Algorithms</a></li>
+                            <li><a href="#dim-alg">Dimensionality Reduction Algorithms</a></li>
+                            <li><a href="#ens-alg">Ensemble Algorithms</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#tai-lieu-tham-khao">3. Tài liệu tham khảo</a></li>
+                </ul>
+            </div>
+
+            <h2 id="phan-nhom-dua-tren-phuong-thuc-hoc">1. Phân nhóm dựa trên phương thức học</h2>
+
+            <p>Theo phương thức học, các thuật toán Machine Learning thường được chia làm 4 nhóm: Supervised learning, Unsupervised learning, Semi-supervised learning và Reinforcement learning. <em>Có một số cách phân nhóm không có Semi-supervised learning hoặc Reinforcement learning.</em></p>
+
+            <h3 id="supervised">Supervised Learning (Học có giám sát)</h3>
+
+            <p>Supervised learning là thuật toán dự đoán đầu ra (outcome) của một dữ liệu mới (new input) dựa trên các cặp (<em>input, outcome</em>) đã biết từ trước. Cặp dữ liệu này còn được gọi là (<em>data, label</em>), tức (<em>dữ liệu, nhãn</em>). Supervised learning là nhóm phổ biến nhất trong các thuật toán Machine Learning.</p>
+            <p>Một cách toán học, Supervised learning là khi chúng ra có một tập hợp biến đầu vào \( \mathcal{X} = \{\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_N\} \) và một tập hợp nhãn tương ứng \( \mathcal{Y} = \{\mathbf{y}_1, \mathbf{y}_2, \dots, \mathbf{y}_N\} \), trong đó \( \mathbf{x}_i, \mathbf{y}_i \) là các vector. Các cặp dữ liệu biết trước \( (\mathbf{x}_i, \mathbf{y}_i) \in \mathcal{X} \times \mathcal{Y} \) được gọi là tập <em>training data</em> (dữ liệu huấn luyện). Từ tập training data này, chúng ta cần tạo ra một hàm số ánh xạ mỗi phần tử từ tập \(\mathcal{X}\) sang một phần tử (xấp xỉ) tương ứng của tập \(\mathcal{Y}\):</p>
+
+            <p>\[ \mathbf{y}_i \approx f(\mathbf{x}_i), ~~ \forall i = 1, 2, \dots, N\]</p>
+
+            <p>Mục đích là xấp xỉ hàm số \(f\) thật tốt để khi có một dữ liệu \(\mathbf{x}\) mới, chúng ta có thể tính được nhãn tương ứng của nó \( \mathbf{y} = f(\mathbf{x}) \).</p>
+
+            <p><strong>Ví dụ 1:</strong> trong nhận dạng chữ viết tay, ta có ảnh của hàng nghìn ví dụ của mỗi chữ số được viết bởi nhiều người khác nhau. Chúng ta đưa các bức ảnh này vào trong một thuật toán và chỉ cho nó biết mỗi bức ảnh tương ứng với chữ số nào. Sau khi thuật toán tạo ra một mô hình, tức một hàm số mà đầu vào là một bức ảnh và đầu ra là một chữ số, khi nhận được một bức ảnh mới mà mô hình <strong>chưa nhìn thấy bao giờ</strong>, nó sẽ dự đoán bức ảnh đó chứa chữ số nào.</p>
+
+            <img src="https://i1-vnexpress.vnecdn.net/2024/08/28/BMW-M3-M4-vnexpress-8-4989-172-3630-4046-1724828030.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=U3BKZm9PM2vFztNKPitG2Q" alt="MNIST dataset">
+            <p class="img-caption"><a href="http://yann.lecun.com/exdb/mnist/">MNIST</a>: bộ cơ sở dữ liệu của chữ số viết tay.</p>
+
+            <p>Ví dụ này khá giống với cách học của con người khi còn nhỏ. Ta đưa bảng chữ cái cho một đứa trẻ và chỉ cho chúng đây là chữ A, đây là chữ B. Sau một vài lần được dạy thì trẻ có thể nhận biết được đâu là chữ A, đâu là chữ B trong một cuốn sách mà chúng chưa nhìn thấy bao giờ.</p>
+
+            <p><strong>Ví dụ 2:</strong> Thuật toán dò các khuôn mặt trong một bức ảnh đã được phát triển từ rất lâu. Thời gian đầu, facebook sử dụng thuật toán này để chỉ ra các khuôn mặt trong một bức ảnh và yêu cầu người dùng <em>tag friends</em> - tức gán nhãn cho mỗi khuôn mặt. Số lượng cặp dữ liệu (<em>khuôn mặt, tên người</em>) càng lớn, độ chính xác ở những lần tự động <em>tag</em> tiếp theo sẽ càng lớn.</p>
+            <p><strong>Ví dụ 3:</strong> Bản thân thuật toán dò tìm các khuôn mặt trong 1 bức ảnh cũng là một thuật toán Supervised learning với training data (dữ liệu học) là hàng ngàn cặp (<em>ảnh, mặt người</em>) và (<em>ảnh, không phải mặt người</em>) được đưa vào. Chú ý là dữ liệu này chỉ phân biệt <em>mặt người</em> và <em>không phải mặt người</em> mà không phân biệt khuôn mặt của những người khác nhau.</p>
+
+            <p>Thuật toán supervised learning còn được tiếp tục chia nhỏ ra thành hai loại chính:</p>
+
+            <h4 id="classification">Classification (Phân loại)</h4>
+            <p>Một bài toán được gọi là <em>classification</em> nếu các <em>label</em> của <em>input data</em> được chia thành một số hữu hạn nhóm. Ví dụ: Gmail xác định xem một email có phải là spam hay không; các hãng tín dụng xác định xem một khách hàng có khả năng thanh toán nợ hay không. Ba ví dụ phía trên được chia vào loại này.</p>
+
+            <h4 id="regression">Regression (Hồi quy)</h4>
+            <p>(tiếng Việt dịch là <em>Hồi quy</em>, tôi không thích cách dịch này vì bản thân không hiểu nó nghĩa là gì)</p>
+            <p>Nếu <em>label</em> không được chia thành các nhóm mà là một giá trị thực cụ thể. Ví dụ: một căn nhà rộng \(x ~ \text{m}^2\), có \(y\) phòng ngủ và cách trung tâm thành phố \(z~ \text{km}\) sẽ có giá là bao nhiêu?</p>
+            <p>Gần đây <a href="http://how-old.net/">Microsoft có một ứng dụng dự đoán giới tính và tuổi dựa trên khuôn mặt</a>. Phần dự đoán giới tính có thể coi là thuật toán <strong>Classification</strong>, phần dự đoán tuổi có thể coi là thuật toán <strong>Regression</strong>. <em>Chú ý rằng phần dự đoán tuổi cũng có thể coi là <strong>Classification</strong> nếu ta coi tuổi là một số nguyên dương không lớn hơn 150, chúng ta sẽ có 150 class (lớp) khác nhau.</em></p>
+
+            <h3 id="unsupervised">Unsupervised Learning (Học không giám sát)</h3>
+            <p>Trong thuật toán này, chúng ta không biết được <em>outcome</em> hay <em>nhãn</em> mà chỉ có dữ liệu đầu vào. Thuật toán unsupervised learning sẽ dựa vào cấu trúc của dữ liệu để thực hiện một công việc nào đó, ví dụ như phân nhóm (clustering) hoặc giảm số chiều của dữ liệu (dimension reduction) để thuận tiện trong việc lưu trữ và tính toán.</p>
+            <p>Một cách toán học, Unsupervised learning là khi chúng ta chỉ có dữ liệu vào \(\mathcal{X} \) mà không biết <em>nhãn</em> \(\mathcal{Y}\) tương ứng.</p>
+            <p>Những thuật toán loại này được gọi là Unsupervised learning vì không giống như Supervised learning, chúng ta không biết câu trả lời chính xác cho mỗi dữ liệu đầu vào. Giống như khi ta học, không có thầy cô giáo nào chỉ cho ta biết đó là chữ A hay chữ B. Cụm <em>không giám sát</em> được đặt tên theo nghĩa này.</p>
+            <p>Các bài toán Unsupervised learning được tiếp tục chia nhỏ thành hai loại:</p>
+
+            <h4 id="clustering">Clustering (phân nhóm)</h4>
+            <p>Một bài toán phân nhóm toàn bộ dữ liệu \(\mathcal{X}\) thành các nhóm nhỏ dựa trên sự liên quan giữa các dữ liệu trong mỗi nhóm. Ví dụ: phân nhóm khách hàng dựa trên hành vi mua hàng. Điều này cũng giống như việc ta đưa cho một đứa trẻ rất nhiều mảnh ghép với các hình thù và màu sắc khác nhau, ví dụ tam giác, vuông, tròn với màu xanh và đỏ, sau đó yêu cầu trẻ phân chúng thành từng nhóm. Mặc dù không cho trẻ biết mảnh nào tương ứng với hình nào hoặc màu nào, nhiều khả năng chúng vẫn có thể phân loại các mảnh ghép theo màu hoặc hình dạng.</p>
+
+            <h4 id="association">Association</h4>
+            <p>Là bài toán khi chúng ta muốn khám phá ra một quy luật dựa trên nhiều dữ liệu cho trước. Ví dụ: những khách hàng nam mua quần áo thường có xu hướng mua thêm đồng hồ hoặc thắt lưng; những khán giả xem phim Spider Man thường có xu hướng xem thêm phim Bat Man, dựa vào đó tạo ra một hệ thống gợi ý khách hàng (Recommendation System), thúc đẩy nhu cầu mua sắm.</p>
+
+            <h3 id="semi">Semi-Supervised Learning (Học bán giám sát)</h3>
+            <p>Các bài toán khi chúng ta có một lượng lớn dữ liệu \(\mathcal{X}\) nhưng chỉ một phần trong chúng được gán nhãn được gọi là Semi-Supervised Learning. Những bài toán thuộc nhóm này nằm giữa hai nhóm được nêu bên trên.</p>
+            <p>Một ví dụ điển hình của nhóm này là chỉ có một phần ảnh hoặc văn bản được gán nhãn (ví dụ bức ảnh về người, động vật hoặc các văn bản khoa học, chính trị) và phần lớn các bức ảnh/văn bản khác chưa được gán nhãn được thu thập từ internet. Thực tế cho thấy rất nhiều các bài toán Machine Learning thuộc vào nhóm này vì việc thu thập dữ liệu có nhãn tốn rất nhiều thời gian và có chi phí cao. Rất nhiều loại dữ liệu thậm chí cần phải có chuyên gia mới gán nhãn được (ảnh y học chẳng hạn). Ngược lại, dữ liệu chưa có nhãn có thể được thu thập với chi phí thấp từ internet.</p>
+
+            <h3 id="reinforcement">Reinforcement Learning (Học Củng Cố)</h3>
+            <p>Reinforcement learning là các bài toán giúp cho một hệ thống tự động xác định hành vi dựa trên hoàn cảnh để đạt được lợi ích cao nhất (maximizing the performance). Hiện tại, Reinforcement learning chủ yếu được áp dụng vào Lý Thuyết Trò Chơi (Game Theory), các thuật toán cần xác định nước đi tiếp theo để đạt được điểm số cao nhất.</p>
+
+            <a href="/2016/12/27/categories/">
+                <img src="https://machinelearningcoban.com/assets/categories/alphago.jpeg" alt="AlphaGo">
+            </a>
+            <p class="img-caption">AlphaGo chơi cờ vây với Lee Sedol. AlphaGo là một ví dụ của Reinforcement learning.</p>
+
+            <p><strong>Ví dụ 1:</strong> <a href="https://gogameguru.com/tag/deepmind-alphago-lee-sedol/">AlphaGo gần đây nổi tiếng với việc chơi cờ vây thắng cả con người</a>. <a href="https://www.tastehit.com/blog/google-deepmind-alphago-how-it-works/">Cờ vây được xem là có độ phức tạp cực kỳ cao</a> với tổng số nước đi là xấp xỉ \(10^{761} \), so với cờ vua là \(10^{120} \) và tổng số nguyên tử trong toàn vũ trụ là khoảng \(10^{80}\)!! Vì vậy, thuật toán phải chọn ra 1 nước đi tối ưu trong số hàng nhiều tỉ tỉ lựa chọn, và tất nhiên, không thể áp dụng thuật toán tương tự như <a href="https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer)">IBM Deep Blue</a> (IBM Deep Blue đã thắng con người trong môn cờ vua 20 năm trước). Về cơ bản, AlphaGo bao gồm các thuật toán thuộc cả Supervised learning và Reinforcement learning. Trong phần Supervised learning, dữ liệu từ các ván cờ do con người chơi với nhau được đưa vào để huấn luyện. Tuy nhiên, mục đích cuối cùng của AlphaGo không phải là chơi như con người mà phải thậm chí thắng cả con người. Vì vậy, sau khi <em>học</em> xong các ván cờ của con người, AlphaGo tự chơi với chính nó với hàng triệu ván chơi để tìm ra các nước đi mới tối ưu hơn. Thuật toán trong phần tự chơi này được xếp vào loại Reinforcement learning. (Xem thêm tại <a href="https://www.tastehit.com/blog/google-deepmind-alphago-how-it-works/">Google DeepMind's AlphaGo: How it works</a>).</p>
+            <p><strong>Ví dụ 2:</strong> <a href="https://www.youtube.com/watch?v=qv6UVOQ0F44">Huấn luyện cho máy tính chơi game Mario</a>. Đây là một chương trình thú vị dạy máy tính chơi game Mario. Game này đơn giản hơn cờ vây vì tại một thời điểm, người chơi chỉ phải bấm một số lượng nhỏ các nút (di chuyển, nhảy, bắn đạn) hoặc không cần bấm nút nào. Đồng thời, phản ứng của máy cũng đơn giản hơn và lặp lại ở mỗi lần chơi (tại thời điểm cụ thể sẽ xuất hiện một chướng ngại vật cố định ở một vị trí cố định). Đầu vào của thuật toán là sơ đồ của màn hình tại thời điểm hiện tại, nhiệm vụ của thuật toán là với đầu vào đó, tổ hợp phím nào nên được bấm. Việc huấn luyện này được dựa trên điểm số cho việc di chuyển được bao xa trong thời gian bao lâu trong game, càng xa và càng nhanh thì được điểm thưởng càng cao (điểm thưởng này không phải là điểm của trò chơi mà là điểm do chính người lập trình tạo ra). Thông qua huấn luyện, thuật toán sẽ tìm ra một cách tối ưu để tối đa số điểm trên, qua đó đạt được mục đích cuối cùng là cứu công chúa.</p>
+
+            <iframe width="100%" height="600" src="https://www.youtube.com/embed/qv6UVOQ0F44?si=3eGwJGdKXkoGE_8L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <p class="img-caption">Huấn luyện cho máy tính chơi game Mario</p>
+
+
+            <h2 id="phan-nhom-dua-tren-chuc-nang">2. Phân nhóm dựa trên chức năng</h2>
+
+            <p>Có một cách phân nhóm thứ hai dựa trên chức năng của các thuật toán. Trong phần này, tôi xin chỉ liệt kê các thuật toán. Thông tin cụ thể sẽ được trình bày trong các bài viết khác tại blog này. Trong quá trình viết, tôi có thể sẽ thêm bớt một số thuật toán.</p>
+
+            <h3 id="reg-alg">Regression Algorithms</h3>
+            <ol>
+                <li><a href="/2016/12/28/linearregression/">Linear Regression</a></li>
+                <li><a href="/2017/01/27/logisticregression/#sigmoid-function">Logistic Regression</a></li>
+                <li>Stepwise Regression</li>
+            </ol>
+
+            <h3 id="cls-alg">Classification Algorithms</h3>
+            <ol>
+                <li>Linear Classifier</li>
+                <li><a href="https://machinelearningcoban.com/2017/04/09/smv/">Support Vector Machine (SVM)</a></li>
+                <li><a href="https://machinelearningcoban.com/2017/04/22/kernelsmv/">Kernel SVM</a></li>
+                <li>Sparse Representation-based classification (SRC)</li>
+            </ol>
+
+            <h3 id="ins-alg">Instance-based Algorithms</h3>
+            <ol>
+                <li><a href="/2017/01/08/knn/">k-Nearest Neighbor (kNN)</a></li>
+                <li>Learning Vector Quantization (LVQ)</li>
+            </ol>
+
+            <h3 id="rgl-alg">Regularization Algorithms</h3>
+            <ol>
+                <li>Ridge Regression</li>
+                <li>Least Absolute Shrinkage and Selection Operator (LASSO)</li>
+                <li>Least-Angle Regression (LARS)</li>
+            </ol>
+
+            <h3 id="bay-alg">Bayesian Algorithms</h3>
+            <ol>
+                <li>Naive Bayes</li>
+                <li>Gaussian Naive Bayes</li>
+            </ol>
+
+            <h3 id="clu-alg">Clustering Algorithms</h3>
+            <ol>
+                <li><a href="/2017/01/01/kmeans/">k-Means clustering</a></li>
+                <li>k-Medians</li>
+                <li>Expectation Maximization (EM)</li>
+            </ol>
+
+            <h3 id="ann-alg">Artificial Neural Network Algorithms</h3>
+            <ol>
+                <li><a href="/2017/01/21/perceptron/">Perceptron</a></li>
+                <li><a href="/2017/02/17/softmax/">Softmax Regression</a></li>
+                <li><a href="/2017/02/24/mlp/">Multi-layer Perceptron</a></li>
+                <li><a href="/2017/02/24/mlp/#-backpropagation">Back-Propagation</a></li>
+            </ol>
+
+            <h3 id="dim-alg">Dimensionality Reduction Algorithms</h3>
+            <ol>
+                <li><a href="https://machinelearningcoban.com/2017/06/15/pca/">Principal Component Analysis (PCA)</a></li>
+                <li><a href="https://machinelearningcoban.com/2017/06/30/lda/">Linear Discriminant Analysis (LDA)</a></li>
+            </ol>
+
+            <h3 id="ens-alg">Ensemble Algorithms</h3>
+            <ol>
+                <li>Boosting</li>
+                <li>AdaBoost</li>
+                <li>Random Forest</li>
+            </ol>
+
+            <p>Và còn rất nhiều các thuật toán khác.</p>
+
+            <h2 id="tai-lieu-tham-khao">3. Tài liệu tham khảo</h2>
+            <ol>
+                <li><a href="http://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/">A Tour of Machine Learning Algorithms</a></li>
+                <li><a href="https://ongxuanhong.wordpress.com/2015/10/22/diem-qua-cac-thuat-toan-machine-learning-hien-dai/">Điểm qua các thuật toán Machine Learning hiện đại</a></li>
+            </ol>
+
+            <hr class="divider" style="margin-top: 2em;">
+
+            <div class="post-comment-note">
+                <p><em>Nếu có câu hỏi, Bạn có thể để lại comment bên dưới hoặc trên <a href="https://www.facebook.com/groups/257768141347267/">Forum</a> để nhận được câu trả lời sớm hơn.</em></p>
+                <p><em>Bạn đọc có thể ủng hộ blog qua <a href="/buymeacoffee/">'Buy me a cofee'</a> ở góc trên bên trái của blog.</em></p>
+                <p><em>Tôi vừa hoàn thành cuốn ebook 'Machine Learning cơ bản', bạn có thể đặt sách <a href="/ebook/">tại đây</a>. Cảm ơn bạn.</em></p>
+            </div>
+
+        </div>
+
+        <div class="post-footer-nav">
+            <a href="/2016/12/26/introduce/">« Bài 1: Giới thiệu về Machine Learning</a>
+            <a href="/2016/12/28/linearregression/">Bài 3: Linear Regression »</a>
+        </div>
+
+    </main>
+
+
+</div>
+
+</body>
+</html>
