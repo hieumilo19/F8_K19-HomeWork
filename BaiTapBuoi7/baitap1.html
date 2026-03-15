@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm cấu hình giao diện </title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 13px;
+            background: #e8e8e8;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 2px solid #333333;
+            width: 340px;
+        }
+
+        .panel-header {
+            background: #e07820;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 5px 8px;
+        }
+        .zone-controls {
+            padding: 8px 10px 6px;
+            border-bottom: 1px solid #cccccc;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: #f5f5f5;
+        }
+
+        .group-label {
+            font-size: 12px;
+            color: #333333;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .options-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .radio-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #333333;
+            user-select: none;
+        }
+        .radio-label::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1.5px solid #666666;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+        .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            color: #555555;
+            user-select: none;
+        }
+        .checkbox-label::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid #888888;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+        .label-color-red   { color: #cc0000; }
+        .label-color-blue  { color: #0055cc; }
+        .label-color-green { color: #007700; }
+        .label-lang-vi     { color: #007700; }
+        #theme-light:checked ~ .panel .label-theme-light::before,
+        #theme-dark:checked  ~ .panel .label-theme-dark::before,
+        #color-red:checked   ~ .panel .label-color-red::before,
+        #color-blue:checked  ~ .panel .label-color-blue::before,
+        #color-green:checked ~ .panel .label-color-green::before,
+        #lang-vi:checked     ~ .panel .label-lang-vi::before,
+        #lang-en:checked     ~ .panel .label-lang-en::before {
+            background: #0057b8;
+            border-color: #0057b8;
+            box-shadow: inset 0 0 0 3px #ffffff;
+        }
+        #opt-advanced:checked ~ .panel .label-opt-advanced::before,
+        #opt-eco:checked      ~ .panel .label-opt-eco::before,
+        #opt-warning:checked  ~ .panel .label-opt-warning::before {
+            background: #0057b8;
+            border-color: #0057b8;
+            content: '✓';
+            color: white;
+            font-size: 9px;
+            line-height: 12px;
+            text-align: center;
+        }
+        #opt-advanced:checked ~ .panel .label-opt-advanced {
+            color: #7a5c00; font-weight: bold;
+            background: #fff3c0; padding: 1px 4px; border-radius: 2px;
+        }
+        #opt-eco:checked ~ .panel .label-opt-eco {
+            color: #1a5c28; font-weight: bold;
+            background: #d4edda; padding: 1px 4px; border-radius: 2px;
+        }
+        #opt-warning:checked ~ .panel .label-opt-warning {
+            color: #cc0000; font-weight: bold;
+            background: #fde8e8; padding: 1px 4px; border-radius: 2px;
+        }
+        .zone-results {
+            padding: 4px 0 6px;
+            display: flex;
+            flex-direction: column;
+        }
+        .result-item {
+            font-size: 12px;
+            padding: 4px 10px;
+            color: #aaaaaa;
+            background: transparent;
+            line-height: 1.4;
+        }
+
+        #theme-light:checked ~ .panel .res-theme-light {
+            background: #fffde0; color: #333300; font-weight: bold; font-size: 13px;
+        }
+        #theme-dark:checked ~ .panel .res-theme-dark {
+            background: #333333; color: #ffffff; font-weight: bold; font-size: 13px;
+        }
+
+        #color-red:checked ~ .panel .res-color-red {
+            background: #fde8e8; color: #cc0000; font-weight: bold; font-size: 13px;
+        }
+        #color-blue:checked ~ .panel .res-color-blue {
+            background: #ddeeff; color: #0055cc; font-weight: bold; font-size: 13px;
+        }
+        #color-green:checked ~ .panel .res-color-green {
+            background: #ddfadd; color: #007700; font-weight: bold; font-size: 13px;
+        }
+
+        #lang-vi:checked ~ .panel .res-lang-vi {
+            color: #007700; font-weight: bold; font-size: 14px;
+        }
+        #lang-en:checked ~ .panel .res-lang-en {
+            color: #0055cc; font-weight: bold; font-size: 14px;
+        }
+        #opt-advanced:checked ~ .panel .res-opt-advanced {
+            background: #fffde0; color: #7a5c00; font-weight: bold; font-size: 13px;
+        }
+        #opt-eco:checked ~ .panel .res-opt-eco {
+            background: #ddfadd; color: #007700; font-weight: bold; font-size: 13px;
+        }
+        #opt-warning:checked ~ .panel .res-opt-warning {
+            background: #fde8e8; color: #cc0000; font-weight: bold; font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<input type="radio" id="theme-light" name="theme" checked>
+<input type="radio" id="theme-dark"  name="theme">
+
+<input type="radio" id="color-red"   name="color" checked>
+<input type="radio" id="color-blue"  name="color">
+<input type="radio" id="color-green" name="color">
+
+<input type="radio" id="lang-vi" name="lang" checked>
+<input type="radio" id="lang-en" name="lang">
+
+<input type="checkbox" id="opt-advanced">
+<input type="checkbox" id="opt-eco">
+<input type="checkbox" id="opt-warning">
+
+<div class="panel">
+    <div class="panel-header">Trung tâm cấu hình giao diện </div>
+    <div class="zone-controls">
+        <div class="group">
+            <span class="group-label">Chọn giao diện (Theme):</span>
+            <div class="options-row">
+                <label class="radio-label label-theme-light" for="theme-light">Light</label>
+                <label class="radio-label label-theme-dark"  for="theme-dark">Dark</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="group-label">Chọn màu chủ đạo (Color):</span>
+            <div class="options-row">
+                <label class="radio-label label-color-red"   for="color-red">Red</label>
+                <label class="radio-label label-color-blue"  for="color-blue">Blue</label>
+                <label class="radio-label label-color-green" for="color-green">Green</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="group-label">Chọn ngôn ngữ (Language):</span>
+            <div class="options-row">
+                <label class="radio-label label-lang-vi" for="lang-vi">VI</label>
+                <label class="radio-label label-lang-en" for="lang-en">EN</label>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="group-label">Tùy chọn bổ sung (Options - Checkbox):</span>
+            <div class="options-row">
+                <label class="checkbox-label label-opt-advanced" for="opt-advanced">Hiện thị mô tả nâng cao</label>
+                <label class="checkbox-label label-opt-eco"      for="opt-eco">Bật chế độ Eco</label>
+                <label class="checkbox-label label-opt-warning"  for="opt-warning">Hiển thị cảnh báo quan trọng</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="zone-results">
+        <div class="result-item res-theme-light">Theme Light: Giao diện sáng, chữ đen.</div>
+        <div class="result-item res-theme-dark">Theme Dark: Giao diện tối, chữ sáng.</div>
+        <div class="result-item res-color-red">Màu Red: được nhấn mạnh khi chọn Red.</div>
+        <div class="result-item res-color-blue">Màu Blue: được nhấn mạnh khi chọn Blue.</div>
+        <div class="result-item res-color-green">Màu Green: được nhấn mạnh khi chọn Green.</div>
+        <div class="result-item res-lang-vi">[VI] Xin chào bạn! Khi chọn VI, dòng này rõ hơn.</div>
+        <div class="result-item res-lang-en">[EN] Hello, world! Khi chọn EN, dòng này rõ hơn.</div>
+        <div class="result-item res-opt-advanced">Mô tả nâng cao: giải thích kỹ hơn về cách các lựa chọn đang ảnh hưởng giao diện.</div>
+        <div class="result-item res-opt-eco">Chế độ Eco: mô phỏng trạng thái tiết kiệm tài nguyên cho giao diện.</div>
+        <div class="result-item res-opt-warning">Cảnh báo quan trọng: khu vực dùng để nhấn mạnh thông tin hệ thống.</div>
+    </div>
+</div>
+</body>
+</html>
