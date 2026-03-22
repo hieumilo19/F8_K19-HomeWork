@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        #modal-toggle {
+            display: none;
+        }
+
+        .open-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: #ffffff;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .overlay {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            margin: -40px;
+            padding: 40px;
+            pointer-events: none;
+        }
+
+        #modal-toggle:checked ~ .overlay {
+            display: flex;
+        }
+
+        .modal {
+            pointer-events: auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 280px;
+        }
+
+        .modal p {
+            color: #333333;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+<input type="checkbox" id="modal-toggle">
+
+<label class="open-btn" for="modal-toggle">Mở modal</label>
+
+<label class="overlay" for="modal-toggle">
+    <div class="modal">
+        <p>Đây là nội dung thông báo!</p>
+        <label class="close-btn" for="modal-toggle">Đóng</label>
+    </div>
+</label>
+</body>
+</html>
